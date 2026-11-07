@@ -1,0 +1,17 @@
+{
+  "name": "khan-burger-family-restaurant",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Khan Burger and Family Restaurant website",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "type": "module",
+  "dependencies": {
+    "firebase": "^13.2.0"
+  },
+  "devDependencies": {
+    "vite": "^8.3.6"
+  }
+}

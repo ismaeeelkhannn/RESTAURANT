@@ -1,4 +1,25 @@
-const RESTAURANT_WHATSAPP = "923014998983";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBDlvOyN28a_sus8AmI62xiIKU7sk8oFns",
+  authDomain: "khan-burger-and-family.firebaseapp.com",
+  projectId: "khan-burger-and-family",
+  storageBucket: "khan-burger-and-family.firebasestorage.app",
+  messagingSenderId: "417222558524",
+  appId: "1:417222558524:web:6ec7b6ceaa4a80bd2cd439",
+  measurementId: "G-Z3LKEPVY7K"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const RESTAURANT_WHATSAPP = "923070478475";
 const MENU = [
   { id: 1, cat: "Pizza", name: "Special Creamy Pizza", desc: "Creamy special pizza", price: 750 },
   { id: 2, cat: "Pizza", name: "Special Bistro Pizza", desc: "Bistro style", price: 750 },
@@ -55,7 +76,6 @@ const MENU_IMAGES = {
 };
 
 const STORAGE_KEY = "khanCart";
-const ORDER_HISTORY_KEY = "khanOrders";
 const menuContainer = document.querySelector("#menuItems");
 const categoriesContainer = document.querySelector("#categories");
 const cartPanel = document.querySelector("#cart");
@@ -308,18 +328,23 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+const submitBtn = orderForm.querySelector(".order-btn");
+const submitBtnLabel = submitBtn.textContent;
+
+function updateAddressField() {
+  const isDelivery = document.querySelector('input[name="orderType"]:checked').value === "Delivery";
+  addressEl.required = isDelivery;
+  addressEl.disabled = !isDelivery;
+  addressEl.placeholder = isDelivery ? "Address (zaroori hai)" : "Address (pickup par zaroori nahi)";
+  addressEl.classList.toggle("is-hidden", !isDelivery);
+  document.querySelector('label[for="custAddress"]').classList.toggle("is-hidden", !isDelivery);
+}
+
 document.querySelectorAll('input[name="orderType"]').forEach((radio) => {
-  radio.addEventListener("change", () => {
-    const isDelivery = document.querySelector('input[name="orderType"]:checked').value === "Delivery";
-    addressEl.required = isDelivery;
-    addressEl.disabled = !isDelivery;
-    addressEl.placeholder = isDelivery ? "Address (zaroori hai)" : "Address (pickup par zaroori nahi)";
-    addressEl.classList.toggle("is-hidden", !isDelivery);
-    document.querySelector('label[for="custAddress"]').classList.toggle("is-hidden", !isDelivery);
-  });
+  radio.addEventListener("change", updateAddressField);
 });
 
-orderForm.addEventListener("submit", (event) => {
+orderForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   formMsg.textContent = "";
   formMsg.classList.remove("is-error");
@@ -339,40 +364,70 @@ orderForm.addEventListener("submit", (event) => {
   const address = addressEl.value.trim();
   const note = orderForm.elements.note.value.trim();
   const orderType = orderForm.elements.orderType.value;
-  const details = [
-    "*Naya Order - Khan Burger*",
-    "",
-    `*Naam:* ${name}`,
-    `*Phone:* ${phone}`,
-    `*Order Type:* ${orderType}`,
-    ...(orderType === "Delivery" ? [`*Address:* ${address}`] : []),
-    "",
-    "*Items:*",
-    ...cart.map((item, index) => `${index + 1}. ${item.name} x ${item.qty} = ${formatPrice(item.price * item.qty)}`),
-    "",
-    `*Total: ${formatPrice(getTotal())}*`,
-    ...(note ? ["", `*Note:* ${note}`] : [])
-  ].join("\n");
-  const whatsappUrl = `https://wa.me/${RESTAURANT_WHATSAPP}?text=${encodeURIComponent(details)}`;
-  const orders = readStorage(ORDER_HISTORY_KEY, []);
+  const orderedItems = cart.map((item) => ({ name: item.name, price: item.price, qty: item.qty }));
+  const total = getTotal();
+  const orderWindow = window.open("", "_blank");
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Order bhej rahe hain...";
+
   try {
-    localStorage.setItem(ORDER_HISTORY_KEY, JSON.stringify([
-      ...(Array.isArray(orders) ? orders : []),
-      { date: new Date().toISOString(), name, phone, orderType, items: cart, total: getTotal() }
-    ]));
-  } catch {
-    formMsg.textContent = "WhatsApp khul raha hai. Order history save nahi ho saki.";
+    const orderRef = await addDoc(collection(db, "orders"), {
+      name,
+      phone,
+      orderType,
+      address: orderType === "Delivery" ? address : "",
+      note,
+      items: orderedItems,
+      total,
+      status: "Pending",
+      createdAt: serverTimestamp()
+    });
+
+    const details = [
+      "*Naya Order - Khan Burger*",
+      "",
+      `*Order ID:* ${orderRef.id}`,
+      `*Naam:* ${name}`,
+      `*Phone:* ${phone}`,
+      `*Order Type:* ${orderType}`,
+      ...(orderType === "Delivery" ? [`*Address:* ${address}`] : []),
+      "",
+      "*Items:*",
+      ...orderedItems.map((item, index) => `${index + 1}. ${item.name} x ${item.qty} = ${formatPrice(item.price * item.qty)}`),
+      "",
+      `*Total: ${formatPrice(total)}*`,
+      ...(note ? ["", `*Note:* ${note}`] : [])
+    ].join("\n");
+    const whatsappUrl = `https://wa.me/${RESTAURANT_WHATSAPP}?text=${encodeURIComponent(details)}`;
+
+    cart = [];
+    saveCart();
+    renderCart();
+    orderForm.reset();
+    updateAddressField();
+
+    if (orderWindow) {
+      orderWindow.opener = null;
+      orderWindow.location.href = whatsappUrl;
+      closeCart();
+    } else {
+      formMsg.textContent = "Order save ho gaya. WhatsApp par bhejne ke liye ";
+      const link = document.createElement("a");
+      link.href = whatsappUrl;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = "yahan click karein";
+      formMsg.append(link);
+    }
+  } catch (error) {
+    if (orderWindow) orderWindow.close();
+    console.error(error);
+    formMsg.textContent = "Order save nahi ho saka. Internet check karke dobara koshish karein.";
+    formMsg.classList.add("is-error");
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = submitBtnLabel;
   }
-  window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-  cart = [];
-  saveCart();
-  renderCart();
-  orderForm.reset();
-  addressEl.required = true;
-  addressEl.disabled = false;
-  addressEl.classList.remove("is-hidden");
-  document.querySelector('label[for="custAddress"]').classList.remove("is-hidden");
-  closeCart();
 });
 
 renderCategories();
