@@ -1,168 +1,183 @@
 const menuItems = {
-  starters: [
-    { name: "Tandoori broccoli", description: "Charred florets, hung curd, sesame crunch", price: "₹340", image: "photo-1512621776951-a57141f2eefd" },
-    { name: "Smoky paneer tikka", description: "Kasundi marinade, pickled onion, mint", price: "₹420", image: "photo-1547592180-85f173990554" },
-    { name: "Crispy lotus stem", description: "Jaggery chilli glaze, toasted peanuts", price: "₹360", image: "photo-1540189549336-e6e99c3679fe" },
-    { name: "Little samosa chaat", description: "Peas, tamarind, a generous yoghurt drizzle", price: "₹290", image: "photo-1565557623262-b51c2513a641" }
+  "Burgers": [
+    { name: "Zinger Burger", description: "Crispy chicken, fresh lettuce, house sauce", price: 650, image: "photo-1568901346375-23c9450c58cd" },
+    { name: "Beef Smash Burger", description: "Grilled beef patty, cheddar, caramelised onion", price: 850, image: "photo-1553979459-d2229ba7433a" },
+    { name: "Chicken Chapli Burger", description: "Chapli kebab, mint chutney, crunchy salad", price: 720, image: "photo-1550547660-d9450f859349" },
+    { name: "Double Khan Burger", description: "Two grilled patties, double cheese, house sauce", price: 1050, image: "photo-1571091718767-18b5b1457add" }
   ],
-  mains: [
-    { name: "Butter chicken, our way", description: "Tandoor-kissed chicken, slow tomato makhani", price: "₹680", image: "photo-1565557623262-b51c2513a641" },
-    { name: "Goan coconut curry", description: "Seasonal catch, kokum, steamed rice", price: "₹740", image: "photo-1547592180-85f173990554" },
-    { name: "Dal makhani overnight", description: "Black lentils, cultured butter, a slow flame", price: "₹520", image: "photo-1512621776951-a57141f2eefd" },
-    { name: "Paneer tikka masala", description: "Coal-roasted paneer, ginger, green cardamom", price: "₹590", image: "photo-1540189549336-e6e99c3679fe" }
+  "Pizza": [
+    { name: "Chicken Tikka Pizza", description: "Tikka chicken, onion, green pepper, mozzarella", price: 1250, image: "photo-1579751626657-72bc17010498" },
+    { name: "Fajita Pizza", description: "Spiced chicken, capsicum, olives, cheese", price: 1250, image: "photo-1571407970349-bc81e7e96d47" },
+    { name: "Malai Boti Pizza", description: "Creamy malai boti, onion, herbs, mozzarella", price: 1390, image: "photo-1513104890138-7c749659a591" },
+    { name: "Khan Special Pizza", description: "Chicken, beef, olives, peppers, extra cheese", price: 1590, image: "photo-1579751626657-72bc17010498" }
   ],
-  desserts: [
-    { name: "Gulab jamun cheesecake", description: "Saffron cream, pistachio crumb", price: "₹320", image: "photo-1488477181946-6428a0291777" },
-    { name: "Mango kulfi", description: "Alphonso mango, a pinch of chilli salt", price: "₹260", image: "photo-1501446529957-6226bd447c46" },
-    { name: "Dark chocolate shahi tukda", description: "Brioche, rose rabri, cocoa nibs", price: "₹340", image: "photo-1578985545062-69928b1d9587" },
-    { name: "Seasonal fruit & cream", description: "Market fruit, cardamom, honey", price: "₹280", image: "photo-1488477181946-6428a0291777" }
+  "Shinwari": [
+    { name: "Chicken Karahi", description: "Tomato, ginger, green chilli, fresh coriander", price: 1850, image: "photo-1603894584373-5ac82b2ae398" },
+    { name: "Mutton Karahi", description: "Traditional karahi, ginger, green chilli", price: 2950, image: "photo-1545247181-516773cae754" },
+    { name: "Chicken Namkeen Tikka", description: "Smoky grilled chicken, lemon, house spices", price: 1650, image: "photo-1529042410759-befb1204b468" },
+    { name: "Mutton Rosh", description: "Slow-cooked mutton, simple Shinwari seasoning", price: 2850, image: "photo-1544025162-d76694265947" }
   ],
-  drinks: [
-    { name: "House nimbu soda", description: "Fresh lime, black salt, a little fizz", price: "₹180", image: "photo-1513558161293-cdab765edfd7" },
-    { name: "Mango & chilli spritz", description: "Alphonso, lime, Kashmiri chilli", price: "₹280", image: "photo-1546173159-315724a31696" },
-    { name: "Masala chai", description: "Our own spice blend, brewed to order", price: "₹140", image: "photo-1571934811356-5cc061b6821f" },
-    { name: "Rose & cardamom lassi", description: "Thick yoghurt, rose petal, crushed ice", price: "₹220", image: "photo-1556679343-c7306c1976bc" }
+  "Deals": [
+    { name: "Solo Burger Deal", description: "Zinger burger, fries and a regular drink", price: 890, image: "photo-1568901346375-23c9450c58cd" },
+    { name: "Pizza Night Deal", description: "Large pizza with two regular drinks", price: 1690, image: "photo-1513104890138-7c749659a591" },
+    { name: "Family Feast", description: "Two burgers, sharing fries and four drinks", price: 2490, image: "photo-1553979459-d2229ba7433a" },
+    { name: "Karahi Dinner Deal", description: "Chicken karahi, naan and two cold drinks", price: 2190, image: "photo-1603894584373-5ac82b2ae398" }
+  ],
+  "Drinks & Shakes": [
+    { name: "Mango Shake", description: "Creamy mango shake, made fresh", price: 450, image: "photo-1572490122747-3968b75cc699" },
+    { name: "Chocolate Shake", description: "Chocolate, chilled milk, a little extra", price: 480, image: "photo-1577805947697-89e18249d767" },
+    { name: "Mint Margarita", description: "Fresh mint, lemon, crushed ice", price: 390, image: "photo-1513558161293-cdab765edfd7" },
+    { name: "Cold Drink", description: "Chilled soft drink", price: 180, image: "photo-1513558161293-cdab765edfd7" }
   ]
 };
 
-const menuGrid = document.querySelector("#menu-panel");
-const menuTabs = [...document.querySelectorAll(".menu-tab")];
+const menuContainer = document.querySelector("#menuItems");
+const categoriesContainer = document.querySelector("#categories");
+const cartPanel = document.querySelector("#cart");
+const overlay = document.querySelector("#overlay");
+const cart = new Map();
+const allItems = Object.values(menuItems).flat();
+let activeCategory = Object.keys(menuItems)[0];
 
-// Render each category in place and keep the tab accessibility state in sync.
+// Menu prices are sample values; replace them with the restaurant's current prices.
+categoriesContainer.innerHTML = Object.keys(menuItems).map((category, index) => `
+  <button class="category-tab${index === 0 ? " is-active" : ""}" type="button" role="tab" aria-selected="${index === 0}" tabindex="${index === 0 ? "0" : "-1"}" data-category="${category}">${category}</button>
+`).join("");
+
 function renderMenu(category) {
-  const activeTab = menuTabs.find((tab) => tab.dataset.category === category);
-  menuTabs.forEach((tab) => {
-    const isActive = tab === activeTab;
-    tab.classList.toggle("is-active", isActive);
-    tab.setAttribute("aria-selected", String(isActive));
-    tab.tabIndex = isActive ? 0 : -1;
+  activeCategory = category;
+  categoriesContainer.querySelectorAll(".category-tab").forEach((tab) => {
+    const selected = tab.dataset.category === category;
+    tab.classList.toggle("is-active", selected);
+    tab.setAttribute("aria-selected", String(selected));
+    tab.tabIndex = selected ? 0 : -1;
   });
-  menuGrid.setAttribute("aria-labelledby", activeTab.id);
-  menuGrid.innerHTML = menuItems[category].map((item, index) => `
-    <article class="menu-card" style="animation-delay:${index * 55}ms">
-      <div class="menu-card-photo"><img src="https://images.unsplash.com/${item.image}?auto=format&fit=crop&w=700&q=80" alt="${item.name}" loading="lazy"></div>
-      <div class="menu-card-meta"><h3>${item.name}</h3><span class="menu-price">${item.price}</span></div>
-      <p>${item.description}</p>
+  menuContainer.setAttribute("aria-label", `${category} menu items`);
+  menuContainer.innerHTML = menuItems[category].map((item) => `
+    <article class="menu-card">
+      <div class="menu-photo"><img src="https://images.unsplash.com/${item.image}?auto=format&fit=crop&w=800&q=85" alt="${item.name}" loading="lazy"><span class="photo-tag">KHAN'S PICK</span></div>
+      <div class="menu-card-body"><div class="menu-card-title"><h3>${item.name}</h3><span class="menu-price">Rs. ${item.price.toLocaleString("en-PK")}</span></div><p>${item.description}</p><button class="add-button" type="button" data-add="${item.name}">Add to order <span aria-hidden="true">+</span></button></div>
     </article>`).join("");
 }
 
-menuTabs.forEach((tab, index) => {
-  tab.addEventListener("click", () => renderMenu(tab.dataset.category));
-  tab.addEventListener("keydown", (event) => {
-    if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
-    event.preventDefault();
-    const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? menuTabs.length - 1 : (index + (event.key === "ArrowRight" ? 1 : menuTabs.length - 1)) % menuTabs.length;
-    menuTabs[nextIndex].focus();
-    renderMenu(menuTabs[nextIndex].dataset.category);
-  });
+function renderCart() {
+  const entries = [...cart.entries()];
+  const count = entries.reduce((sum, [, quantity]) => sum + quantity, 0);
+  const total = entries.reduce((sum, [name, quantity]) => sum + allItems.find((item) => item.name === name).price * quantity, 0);
+  document.querySelector("#cartCount").textContent = count;
+  document.querySelector("#cartTotal").textContent = `Rs. ${total.toLocaleString("en-PK")}`;
+  document.querySelector("#cartItems").innerHTML = entries.length ? entries.map(([name, quantity]) => {
+    const item = allItems.find((menuItem) => menuItem.name === name);
+    return `<article class="cart-item"><div><strong>${name}</strong><span>Rs. ${(item.price * quantity).toLocaleString("en-PK")}</span></div><div class="quantity-control"><button type="button" data-quantity="${name}" data-change="-1" aria-label="Remove one ${name}">−</button><span>${quantity}</span><button type="button" data-quantity="${name}" data-change="1" aria-label="Add one ${name}">+</button></div></article>`;
+  }).join("") : '<p class="empty">Cart khali hai. Menu se kuch pasand karein!</p>';
+}
+
+function setCartOpen(isOpen) {
+  cartPanel.classList.toggle("is-open", isOpen);
+  cartPanel.setAttribute("aria-hidden", String(!isOpen));
+  cartPanel.inert = !isOpen;
+  overlay.classList.toggle("is-visible", isOpen);
+  overlay.setAttribute("aria-hidden", String(!isOpen));
+  document.body.classList.toggle("cart-open", isOpen);
+  document.querySelector("#cartToggle").setAttribute("aria-expanded", String(isOpen));
+  if (isOpen) document.querySelector("#custName").focus();
+}
+
+categoriesContainer.addEventListener("click", (event) => {
+  const tab = event.target.closest(".category-tab");
+  if (tab) renderMenu(tab.dataset.category);
 });
-renderMenu("starters");
-
-const navToggle = document.querySelector(".nav-toggle");
-const mainNav = document.querySelector("#main-nav");
-navToggle.addEventListener("click", () => {
-  const isOpen = navToggle.getAttribute("aria-expanded") === "true";
-  navToggle.setAttribute("aria-expanded", String(!isOpen));
-  navToggle.setAttribute("aria-label", isOpen ? "Open navigation" : "Close navigation");
-  mainNav.classList.toggle("is-open", !isOpen);
-});
-mainNav.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => {
-  navToggle.setAttribute("aria-expanded", "false");
-  navToggle.setAttribute("aria-label", "Open navigation");
-  mainNav.classList.remove("is-open");
-}));
-
-const reservationForm = document.querySelector("#reservation-form");
-const formMessage = document.querySelector("#form-message");
-const dateInput = reservationForm.elements.date;
-const localToday = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
-dateInput.min = localToday;
-
-// This static page validates the request locally; it does not send a booking.
-reservationForm.addEventListener("submit", (event) => {
+categoriesContainer.addEventListener("keydown", (event) => {
+  const tabs = [...categoriesContainer.querySelectorAll(".category-tab")];
+  const index = tabs.indexOf(document.activeElement);
+  if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
   event.preventDefault();
-  formMessage.classList.remove("is-error");
-  if (!reservationForm.reportValidity()) {
-    formMessage.textContent = "Please check the highlighted fields.";
-    formMessage.classList.add("is-error");
-    return;
-  }
-  if (dateInput.value < localToday) {
-    dateInput.setCustomValidity("Please choose today or a future date.");
-    dateInput.reportValidity();
-    dateInput.setCustomValidity("");
-    formMessage.textContent = "Choose a date that is today or later.";
-    formMessage.classList.add("is-error");
-    return;
-  }
-  const guestName = reservationForm.elements.name.value.trim();
-  formMessage.textContent = `Thanks, ${guestName}. Your details are valid. Please call to confirm your table.`;
-  reservationForm.reset();
-  dateInput.min = localToday;
+  const next = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : (index + (event.key === "ArrowRight" ? 1 : tabs.length - 1)) % tabs.length;
+  tabs[next].focus();
+  renderMenu(tabs[next].dataset.category);
 });
-
-const reviewSlides = [...document.querySelectorAll(".review-slide")];
-const reviewCount = document.querySelector("#review-current");
-let currentReview = 0;
-function showReview(index) {
-  currentReview = (index + reviewSlides.length) % reviewSlides.length;
-  reviewSlides.forEach((slide, slideIndex) => slide.classList.toggle("is-current", slideIndex === currentReview));
-  reviewCount.textContent = String(currentReview + 1).padStart(2, "0");
-}
-document.querySelectorAll(".review-arrow").forEach((button) => {
-  button.addEventListener("click", () => showReview(currentReview + (button.dataset.direction === "next" ? 1 : -1)));
+menuContainer.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-add]");
+  if (!button) return;
+  cart.set(button.dataset.add, (cart.get(button.dataset.add) || 0) + 1);
+  renderCart();
+  button.classList.add("just-added");
+  button.innerHTML = 'Added <span aria-hidden="true">✓</span>';
+  window.setTimeout(() => {
+    if (button.isConnected) {
+      button.classList.remove("just-added");
+      button.innerHTML = 'Add to order <span aria-hidden="true">+</span>';
+    }
+  }, 1100);
 });
-
-const lightbox = document.querySelector("#lightbox");
-const lightboxImage = lightbox.querySelector(".lightbox-image");
-const galleryItems = [...document.querySelectorAll(".gallery-item")];
-let currentImage = 0;
-let lastFocusedElement;
-
-// Cycle gallery images while the lightbox is open, then restore focus on close.
-function showGalleryImage(index) {
-  currentImage = (index + galleryItems.length) % galleryItems.length;
-  const selectedItem = galleryItems[currentImage];
-  lightboxImage.src = selectedItem.dataset.full;
-  lightboxImage.alt = selectedItem.querySelector("img").alt;
-}
-function closeLightbox() {
-  lightbox.classList.remove("is-open");
-  lightbox.setAttribute("aria-hidden", "true");
-  document.body.classList.remove("no-scroll");
-  lastFocusedElement?.focus();
-}
-galleryItems.forEach((item, index) => item.addEventListener("click", () => {
-  lastFocusedElement = item;
-  showGalleryImage(index);
-  lightbox.classList.add("is-open");
-  lightbox.setAttribute("aria-hidden", "false");
-  document.body.classList.add("no-scroll");
-  lightbox.querySelector(".lightbox-close").focus();
-}));
-lightbox.querySelector(".lightbox-close").addEventListener("click", closeLightbox);
-lightbox.querySelector(".lightbox-prev").addEventListener("click", () => showGalleryImage(currentImage - 1));
-lightbox.querySelector(".lightbox-next").addEventListener("click", () => showGalleryImage(currentImage + 1));
-lightbox.addEventListener("click", (event) => {
-  if (event.target === lightbox) closeLightbox();
+document.querySelector("#cartItems").addEventListener("click", (event) => {
+  const button = event.target.closest("[data-quantity]");
+  if (!button) return;
+  const name = button.dataset.quantity;
+  const next = (cart.get(name) || 0) + Number(button.dataset.change);
+  if (next <= 0) cart.delete(name);
+  else cart.set(name, next);
+  renderCart();
 });
+document.querySelector("#cartToggle").addEventListener("click", () => setCartOpen(true));
+document.querySelector("#closeCart").addEventListener("click", () => {
+  setCartOpen(false);
+  document.querySelector("#cartToggle").focus();
+});
+document.querySelectorAll("[data-open-cart]").forEach((button) => button.addEventListener("click", () => setCartOpen(true)));
+overlay.addEventListener("click", () => setCartOpen(false));
 document.addEventListener("keydown", (event) => {
-  if (!lightbox.classList.contains("is-open")) return;
-  if (event.key === "Escape") closeLightbox();
-  if (event.key === "ArrowLeft") showGalleryImage(currentImage - 1);
-  if (event.key === "ArrowRight") showGalleryImage(currentImage + 1);
+  if (event.key === "Escape" && cartPanel.classList.contains("is-open")) {
+    setCartOpen(false);
+    document.querySelector("#cartToggle").focus();
+  }
 });
 
-const revealElements = document.querySelectorAll(".reveal");
-if ("IntersectionObserver" in window) {
-  const revealObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add("is-visible");
-      observer.unobserve(entry.target);
-    });
-  }, { threshold: 0.12 });
-  revealElements.forEach((element) => revealObserver.observe(element));
-} else {
-  revealElements.forEach((element) => element.classList.add("is-visible"));
-}
+const addressField = document.querySelector("#custAddress");
+document.querySelectorAll('input[name="orderType"]').forEach((radio) => radio.addEventListener("change", () => {
+  const needsAddress = document.querySelector('input[name="orderType"]:checked').value === "Delivery";
+  addressField.required = needsAddress;
+  addressField.disabled = !needsAddress;
+  addressField.classList.toggle("is-hidden", !needsAddress);
+  document.querySelector('label[for="custAddress"]').classList.toggle("is-hidden", !needsAddress);
+}));
+
+document.querySelector("#orderForm").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const message = document.querySelector("#formMsg");
+  message.textContent = "";
+  message.classList.remove("is-error");
+  if (!cart.size) {
+    message.textContent = "Pehle menu se kuch items add karein.";
+    message.classList.add("is-error");
+    return;
+  }
+  if (!form.reportValidity()) {
+    message.textContent = "Apna naam, sahi phone number aur delivery address check karein.";
+    message.classList.add("is-error");
+    return;
+  }
+  const orderType = form.elements.orderType.value;
+  const orderLines = [...cart.entries()].map(([name, quantity]) => {
+    const item = allItems.find((menuItem) => menuItem.name === name);
+    return `${quantity} x ${name} - Rs. ${(item.price * quantity).toLocaleString("en-PK")}`;
+  });
+  const total = [...cart.entries()].reduce((sum, [name, quantity]) => sum + allItems.find((item) => item.name === name).price * quantity, 0);
+  const details = [
+    "Assalam-o-alaikum, Khan Burger! Mera order:",
+    ...orderLines,
+    `Total: Rs. ${total.toLocaleString("en-PK")}`,
+    `Naam: ${form.elements.name.value.trim()}`,
+    `Phone: ${form.elements.phone.value.trim()}`,
+    `Order type: ${orderType}`,
+    ...(orderType === "Delivery" ? [`Address: ${addressField.value.trim()}`] : []),
+    ...(form.elements.note.value.trim() ? [`Note: ${form.elements.note.value.trim()}`] : [])
+  ].join("\n");
+  const whatsappUrl = `https://wa.me/923014998983?text=${encodeURIComponent(details)}`;
+  window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+  message.textContent = "WhatsApp khul raha hai. Wahan se order send karein.";
+});
+
+renderMenu(activeCategory);
+renderCart();
