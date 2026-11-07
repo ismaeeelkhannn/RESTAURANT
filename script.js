@@ -1,183 +1,380 @@
-const menuItems = {
-  "Burgers": [
-    { name: "Zinger Burger", description: "Crispy chicken, fresh lettuce, house sauce", price: 650, image: "photo-1568901346375-23c9450c58cd" },
-    { name: "Beef Smash Burger", description: "Grilled beef patty, cheddar, caramelised onion", price: 850, image: "photo-1553979459-d2229ba7433a" },
-    { name: "Chicken Chapli Burger", description: "Chapli kebab, mint chutney, crunchy salad", price: 720, image: "photo-1550547660-d9450f859349" },
-    { name: "Double Khan Burger", description: "Two grilled patties, double cheese, house sauce", price: 1050, image: "photo-1571091718767-18b5b1457add" }
-  ],
-  "Pizza": [
-    { name: "Chicken Tikka Pizza", description: "Tikka chicken, onion, green pepper, mozzarella", price: 1250, image: "photo-1579751626657-72bc17010498" },
-    { name: "Fajita Pizza", description: "Spiced chicken, capsicum, olives, cheese", price: 1250, image: "photo-1571407970349-bc81e7e96d47" },
-    { name: "Malai Boti Pizza", description: "Creamy malai boti, onion, herbs, mozzarella", price: 1390, image: "photo-1513104890138-7c749659a591" },
-    { name: "Khan Special Pizza", description: "Chicken, beef, olives, peppers, extra cheese", price: 1590, image: "photo-1579751626657-72bc17010498" }
-  ],
-  "Shinwari": [
-    { name: "Chicken Karahi", description: "Tomato, ginger, green chilli, fresh coriander", price: 1850, image: "photo-1603894584373-5ac82b2ae398" },
-    { name: "Mutton Karahi", description: "Traditional karahi, ginger, green chilli", price: 2950, image: "photo-1545247181-516773cae754" },
-    { name: "Chicken Namkeen Tikka", description: "Smoky grilled chicken, lemon, house spices", price: 1650, image: "photo-1529042410759-befb1204b468" },
-    { name: "Mutton Rosh", description: "Slow-cooked mutton, simple Shinwari seasoning", price: 2850, image: "photo-1544025162-d76694265947" }
-  ],
-  "Deals": [
-    { name: "Solo Burger Deal", description: "Zinger burger, fries and a regular drink", price: 890, image: "photo-1568901346375-23c9450c58cd" },
-    { name: "Pizza Night Deal", description: "Large pizza with two regular drinks", price: 1690, image: "photo-1513104890138-7c749659a591" },
-    { name: "Family Feast", description: "Two burgers, sharing fries and four drinks", price: 2490, image: "photo-1553979459-d2229ba7433a" },
-    { name: "Karahi Dinner Deal", description: "Chicken karahi, naan and two cold drinks", price: 2190, image: "photo-1603894584373-5ac82b2ae398" }
-  ],
-  "Drinks & Shakes": [
-    { name: "Mango Shake", description: "Creamy mango shake, made fresh", price: 450, image: "photo-1572490122747-3968b75cc699" },
-    { name: "Chocolate Shake", description: "Chocolate, chilled milk, a little extra", price: 480, image: "photo-1577805947697-89e18249d767" },
-    { name: "Mint Margarita", description: "Fresh mint, lemon, crushed ice", price: 390, image: "photo-1513558161293-cdab765edfd7" },
-    { name: "Cold Drink", description: "Chilled soft drink", price: 180, image: "photo-1513558161293-cdab765edfd7" }
-  ]
+const RESTAURANT_WHATSAPP = "923014998983";
+const MENU = [
+  { id: 1, cat: "Pizza", name: "Special Creamy Pizza", desc: "Creamy special pizza", price: 750 },
+  { id: 2, cat: "Pizza", name: "Special Bistro Pizza", desc: "Bistro style", price: 750 },
+  { id: 3, cat: "Pizza", name: "Lazania Pizza", desc: "Lazania style pizza", price: 750 },
+  { id: 4, cat: "Pizza", name: "Maxi Butti Pizza", desc: "Maxi butti", price: 750 },
+  { id: 5, cat: "Pizza", name: "Khan's Special Pizza", desc: "Khan ki khaas pizza", price: 750 },
+  { id: 6, cat: "Pizza", name: "Chicken Supreme Pizza", desc: "Chicken supreme", price: 800 },
+  { id: 7, cat: "Pizza", name: "Chicken Crown Pizza", desc: "Chicken crown", price: 800 },
+  { id: 8, cat: "Pizza", name: "Chicken Tikka Pizza", desc: "Chicken tikka topping", price: 600 },
+  { id: 9, cat: "Pizza", name: "Chicken Fajita Pizza", desc: "Chicken fajita", price: 600 },
+  { id: 10, cat: "Pizza", name: "Chicken Kebab Pizza", desc: "Chicken kebab", price: 600 },
+  { id: 11, cat: "Pizza", name: "Beef Kebab Pizza", desc: "Beef kebab", price: 600 },
+  { id: 12, cat: "Pizza", name: "Vegetable Pizza", desc: "Sabzi wali pizza", price: 500 },
+  { id: 13, cat: "Pizza", name: "Mexican Pizza", desc: "Mexican style", price: 750 },
+  { id: 14, cat: "Pizza", name: "Jalla Peno Pizza", desc: "Jalapeno topping", price: 750 },
+  { id: 20, cat: "Fish Corner", name: "Fish Fry", desc: "Crispy fish fry", price: 1100 },
+  { id: 21, cat: "Fish Corner", name: "Fish Fry Masala", desc: "Masala fish fry", price: 1100 },
+  { id: 22, cat: "Fish Corner", name: "Bonless Fish Tikka", desc: "Boneless fish tikka", price: 1000 },
+  { id: 30, cat: "Burgers", name: "Zinger Burger", desc: "Crispy chicken burger", price: 400 },
+  { id: 31, cat: "Burgers", name: "Chicken Burger", desc: "Chicken burger", price: 350 },
+  { id: 32, cat: "Burgers", name: "Beef Burger", desc: "Beef burger", price: 400 },
+  { id: 40, cat: "Shake Corner", name: "Mix Dry Fruit Shake", desc: "Dry fruit shake", price: 350 },
+  { id: 41, cat: "Shake Corner", name: "Pista Shake", desc: "Pista shake", price: 300 },
+  { id: 42, cat: "Shake Corner", name: "Khan Special Mint Shake", desc: "Mint shake", price: 250 },
+  { id: 43, cat: "Shake Corner", name: "Banana Shake", desc: "Banana shake", price: 250 },
+  { id: 44, cat: "Shake Corner", name: "Mango Shake", desc: "Mango shake", price: 300 },
+  { id: 45, cat: "Shake Corner", name: "Guava Shake", desc: "Guava shake", price: 250 },
+  { id: 46, cat: "Shake Corner", name: "Strawberry Shake", desc: "Strawberry shake", price: 250 },
+  { id: 50, cat: "Juice Corner", name: "Pomegranate Juice", desc: "Anaar ka juice", price: 250 },
+  { id: 51, cat: "Juice Corner", name: "Apple Juice", desc: "Saib ka juice", price: 250 },
+  { id: 52, cat: "Juice Corner", name: "Peach Juice", desc: "Aaru ka juice", price: 250 },
+  { id: 53, cat: "Juice Corner", name: "Orange Juice", desc: "Malta / Orange juice", price: 250 },
+  { id: 54, cat: "Juice Corner", name: "Mango Juice", desc: "Aam ka juice", price: 250 },
+  { id: 60, cat: "Drinks", name: "Regular Drink", desc: "345 ml", price: 80 },
+  { id: 61, cat: "Drinks", name: "Mineral Water", desc: "Bottle", price: 80 },
+  { id: 62, cat: "Drinks", name: "Special Cocktail Drink", desc: "Cocktail drink", price: 250 },
+  { id: 63, cat: "Drinks", name: "Green Tea", desc: "Chai", price: 150 },
+  { id: 64, cat: "Drinks", name: "Kashmiri Chai", desc: "Kashmiri chai", price: 150 },
+  { id: 70, cat: "Deals", name: "Deal 1", desc: "Deal ki tafseel menu se dekhein", price: 449 },
+  { id: 71, cat: "Deals", name: "Deal 2", desc: "Deal ki tafseel menu se dekhein", price: 600 },
+  { id: 72, cat: "Deals", name: "Deal 3", desc: "Deal ki tafseel menu se dekhein", price: 800 },
+  { id: 73, cat: "Deals", name: "Deal 4", desc: "Deal ki tafseel menu se dekhein", price: 1000 },
+  { id: 74, cat: "Deals", name: "Deal 5", desc: "Deal ki tafseel menu se dekhein", price: 1500 }
+];
+
+const MENU_IMAGES = {
+  Pizza: "photo-1513104890138-7c749659a591",
+  "Fish Corner": "photo-1519708227418-c8fd9a32b7a2",
+  Burgers: "photo-1568901346375-23c9450c58cd",
+  "Shake Corner": "photo-1572490122747-3968b75cc699",
+  "Juice Corner": "photo-1622597467836-f3285f2131b8",
+  Drinks: "photo-1513558161293-cdab765edfd7",
+  Deals: "photo-1555939594-58d7cb561ad1"
 };
 
+const STORAGE_KEY = "khanCart";
+const ORDER_HISTORY_KEY = "khanOrders";
 const menuContainer = document.querySelector("#menuItems");
 const categoriesContainer = document.querySelector("#categories");
 const cartPanel = document.querySelector("#cart");
 const overlay = document.querySelector("#overlay");
-const cart = new Map();
-const allItems = Object.values(menuItems).flat();
-let activeCategory = Object.keys(menuItems)[0];
+const orderForm = document.querySelector("#orderForm");
+const formMsg = document.querySelector("#formMsg");
+const addressEl = document.querySelector("#custAddress");
+const categories = ["All", ...new Set(MENU.map((item) => item.cat))];
+const menuById = new Map(MENU.map((item) => [item.id, item]));
+let cart = loadCart();
+let activeCategory = "All";
 
-// Menu prices are sample values; replace them with the restaurant's current prices.
-categoriesContainer.innerHTML = Object.keys(menuItems).map((category, index) => `
-  <button class="category-tab${index === 0 ? " is-active" : ""}" type="button" role="tab" aria-selected="${index === 0}" tabindex="${index === 0 ? "0" : "-1"}" data-category="${category}">${category}</button>
-`).join("");
+function formatPrice(amount) {
+  return `Rs. ${amount.toLocaleString("en-PK")}`;
+}
 
-function renderMenu(category) {
-  activeCategory = category;
-  categoriesContainer.querySelectorAll(".category-tab").forEach((tab) => {
-    const selected = tab.dataset.category === category;
-    tab.classList.toggle("is-active", selected);
-    tab.setAttribute("aria-selected", String(selected));
-    tab.tabIndex = selected ? 0 : -1;
+function readStorage(key, fallback) {
+  try {
+    const stored = localStorage.getItem(key);
+    return stored ? JSON.parse(stored) : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function saveCart() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+  } catch {
+    formMsg.textContent = "Cart is available until this page is closed.";
+  }
+}
+
+function loadCart() {
+  const saved = readStorage(STORAGE_KEY, []);
+  if (!Array.isArray(saved)) return [];
+  return saved.flatMap((entry) => {
+    const item = menuById.get(Number(entry.id));
+    const quantity = Number(entry.qty);
+    return item && Number.isInteger(quantity) && quantity > 0
+      ? [{ id: item.id, name: item.name, price: item.price, qty: quantity }]
+      : [];
   });
-  menuContainer.setAttribute("aria-label", `${category} menu items`);
-  menuContainer.innerHTML = menuItems[category].map((item) => `
-    <article class="menu-card">
-      <div class="menu-photo"><img src="https://images.unsplash.com/${item.image}?auto=format&fit=crop&w=800&q=85" alt="${item.name}" loading="lazy"><span class="photo-tag">KHAN'S PICK</span></div>
-      <div class="menu-card-body"><div class="menu-card-title"><h3>${item.name}</h3><span class="menu-price">Rs. ${item.price.toLocaleString("en-PK")}</span></div><p>${item.description}</p><button class="add-button" type="button" data-add="${item.name}">Add to order <span aria-hidden="true">+</span></button></div>
-    </article>`).join("");
+}
+
+function renderCategories() {
+  categoriesContainer.replaceChildren();
+  categories.forEach((category) => {
+    const button = document.createElement("button");
+    const selected = category === activeCategory;
+    button.className = `category-tab${selected ? " is-active" : ""}`;
+    button.type = "button";
+    button.role = "tab";
+    button.setAttribute("aria-selected", String(selected));
+    button.tabIndex = selected ? 0 : -1;
+    button.dataset.category = category;
+    button.textContent = category;
+    categoriesContainer.append(button);
+  });
+}
+
+function createMenuCard(item) {
+  const card = document.createElement("article");
+  card.className = "menu-card";
+  const photo = document.createElement("div");
+  photo.className = "menu-photo";
+  const image = document.createElement("img");
+  image.src = `https://images.unsplash.com/${MENU_IMAGES[item.cat]}?auto=format&fit=crop&w=800&q=85`;
+  image.alt = item.name;
+  image.loading = "lazy";
+  const tag = document.createElement("span");
+  tag.className = "photo-tag";
+  tag.textContent = "KHAN'S PICK";
+  photo.append(image, tag);
+
+  const body = document.createElement("div");
+  body.className = "menu-card-body";
+  const title = document.createElement("div");
+  title.className = "menu-card-title";
+  const name = document.createElement("h3");
+  name.textContent = item.name;
+  const price = document.createElement("span");
+  price.className = "menu-price";
+  price.textContent = formatPrice(item.price);
+  title.append(name, price);
+  const description = document.createElement("p");
+  description.textContent = item.desc;
+  const addButton = document.createElement("button");
+  addButton.className = "add-button";
+  addButton.type = "button";
+  addButton.dataset.add = item.id;
+  addButton.textContent = "Cart mein daalo +";
+  body.append(title, description, addButton);
+  card.append(photo, body);
+  return card;
+}
+
+function renderMenu() {
+  menuContainer.replaceChildren();
+  const visibleCategories = activeCategory === "All" ? categories.slice(1) : [activeCategory];
+  menuContainer.setAttribute("aria-label", activeCategory === "All" ? "Complete menu" : `${activeCategory} menu`);
+  visibleCategories.forEach((category) => {
+    const heading = document.createElement("h2");
+    heading.className = "cat-title";
+    heading.textContent = category;
+    menuContainer.append(heading);
+    MENU.filter((item) => item.cat === category).forEach((item) => menuContainer.append(createMenuCard(item)));
+  });
+}
+
+function getTotal() {
+  return cart.reduce((total, item) => total + item.price * item.qty, 0);
 }
 
 function renderCart() {
-  const entries = [...cart.entries()];
-  const count = entries.reduce((sum, [, quantity]) => sum + quantity, 0);
-  const total = entries.reduce((sum, [name, quantity]) => sum + allItems.find((item) => item.name === name).price * quantity, 0);
+  const itemsContainer = document.querySelector("#cartItems");
+  const count = cart.reduce((sum, item) => sum + item.qty, 0);
   document.querySelector("#cartCount").textContent = count;
-  document.querySelector("#cartTotal").textContent = `Rs. ${total.toLocaleString("en-PK")}`;
-  document.querySelector("#cartItems").innerHTML = entries.length ? entries.map(([name, quantity]) => {
-    const item = allItems.find((menuItem) => menuItem.name === name);
-    return `<article class="cart-item"><div><strong>${name}</strong><span>Rs. ${(item.price * quantity).toLocaleString("en-PK")}</span></div><div class="quantity-control"><button type="button" data-quantity="${name}" data-change="-1" aria-label="Remove one ${name}">−</button><span>${quantity}</span><button type="button" data-quantity="${name}" data-change="1" aria-label="Add one ${name}">+</button></div></article>`;
-  }).join("") : '<p class="empty">Cart khali hai. Menu se kuch pasand karein!</p>';
+  document.querySelector("#cartTotal").textContent = formatPrice(getTotal());
+  itemsContainer.replaceChildren();
+  if (cart.length === 0) {
+    const empty = document.createElement("p");
+    empty.className = "empty";
+    empty.textContent = "Cart khali hai. Menu se kuch pasand karein!";
+    itemsContainer.append(empty);
+    return;
+  }
+  cart.forEach((item) => {
+    const row = document.createElement("article");
+    row.className = "cart-row";
+    const info = document.createElement("div");
+    info.className = "info";
+    const name = document.createElement("strong");
+    name.textContent = item.name;
+    const details = document.createElement("small");
+    details.textContent = `${formatPrice(item.price)} x ${item.qty} = ${formatPrice(item.price * item.qty)}`;
+    info.append(name, document.createElement("br"), details);
+    const quantity = document.createElement("div");
+    quantity.className = "qty";
+    quantity.append(createCartButton("minus", item, "−"));
+    const countLabel = document.createElement("span");
+    countLabel.textContent = item.qty;
+    quantity.append(countLabel, createCartButton("plus", item, "+"));
+    const remove = createCartButton("remove", item, "×");
+    remove.className = "remove-btn";
+    remove.setAttribute("aria-label", `Remove ${item.name}`);
+    row.append(info, quantity, remove);
+    itemsContainer.append(row);
+  });
 }
 
-function setCartOpen(isOpen) {
-  cartPanel.classList.toggle("is-open", isOpen);
-  cartPanel.setAttribute("aria-hidden", String(!isOpen));
-  cartPanel.inert = !isOpen;
-  overlay.classList.toggle("is-visible", isOpen);
-  overlay.setAttribute("aria-hidden", String(!isOpen));
-  document.body.classList.toggle("cart-open", isOpen);
-  document.querySelector("#cartToggle").setAttribute("aria-expanded", String(isOpen));
-  if (isOpen) document.querySelector("#custName").focus();
+function createCartButton(action, item, label) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.dataset.action = action;
+  button.dataset.id = item.id;
+  button.textContent = label;
+  if (action !== "remove") button.setAttribute("aria-label", `${action === "plus" ? "Add one" : "Remove one"} ${item.name}`);
+  return button;
+}
+
+function addToCart(id) {
+  const item = menuById.get(id);
+  if (!item) return;
+  const existing = cart.find((entry) => entry.id === id);
+  if (existing) existing.qty += 1;
+  else cart.push({ id: item.id, name: item.name, price: item.price, qty: 1 });
+  saveCart();
+  renderCart();
+  openCart();
+}
+
+function changeQty(id, delta) {
+  const item = cart.find((entry) => entry.id === id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) cart = cart.filter((entry) => entry.id !== id);
+  saveCart();
+  renderCart();
+}
+
+function removeFromCart(id) {
+  cart = cart.filter((item) => item.id !== id);
+  saveCart();
+  renderCart();
+}
+
+function openCart() {
+  cartPanel.classList.add("is-open");
+  cartPanel.setAttribute("aria-hidden", "false");
+  cartPanel.inert = false;
+  overlay.classList.add("is-visible");
+  overlay.setAttribute("aria-hidden", "false");
+  document.body.classList.add("cart-open");
+  document.querySelector("#cartToggle").setAttribute("aria-expanded", "true");
+  document.querySelector("#custName").focus();
+}
+
+function closeCart() {
+  cartPanel.classList.remove("is-open");
+  cartPanel.setAttribute("aria-hidden", "true");
+  cartPanel.inert = true;
+  overlay.classList.remove("is-visible");
+  overlay.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("cart-open");
+  document.querySelector("#cartToggle").setAttribute("aria-expanded", "false");
 }
 
 categoriesContainer.addEventListener("click", (event) => {
-  const tab = event.target.closest(".category-tab");
-  if (tab) renderMenu(tab.dataset.category);
+  const button = event.target.closest("[data-category]");
+  if (!button) return;
+  activeCategory = button.dataset.category;
+  renderCategories();
+  renderMenu();
 });
 categoriesContainer.addEventListener("keydown", (event) => {
-  const tabs = [...categoriesContainer.querySelectorAll(".category-tab")];
-  const index = tabs.indexOf(document.activeElement);
+  const buttons = [...categoriesContainer.querySelectorAll("[data-category]")];
+  const index = buttons.indexOf(document.activeElement);
   if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
   event.preventDefault();
-  const next = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : (index + (event.key === "ArrowRight" ? 1 : tabs.length - 1)) % tabs.length;
-  tabs[next].focus();
-  renderMenu(tabs[next].dataset.category);
+  const next = event.key === "Home" ? 0 : event.key === "End" ? buttons.length - 1 : (index + (event.key === "ArrowRight" ? 1 : buttons.length - 1)) % buttons.length;
+  activeCategory = buttons[next].dataset.category;
+  renderCategories();
+  renderMenu();
+  categoriesContainer.querySelector(`[data-category="${CSS.escape(activeCategory)}"]`).focus();
 });
 menuContainer.addEventListener("click", (event) => {
   const button = event.target.closest("[data-add]");
-  if (!button) return;
-  cart.set(button.dataset.add, (cart.get(button.dataset.add) || 0) + 1);
-  renderCart();
-  button.classList.add("just-added");
-  button.innerHTML = 'Added <span aria-hidden="true">✓</span>';
-  window.setTimeout(() => {
-    if (button.isConnected) {
-      button.classList.remove("just-added");
-      button.innerHTML = 'Add to order <span aria-hidden="true">+</span>';
-    }
-  }, 1100);
+  if (button) addToCart(Number(button.dataset.add));
 });
 document.querySelector("#cartItems").addEventListener("click", (event) => {
-  const button = event.target.closest("[data-quantity]");
+  const button = event.target.closest("[data-action]");
   if (!button) return;
-  const name = button.dataset.quantity;
-  const next = (cart.get(name) || 0) + Number(button.dataset.change);
-  if (next <= 0) cart.delete(name);
-  else cart.set(name, next);
-  renderCart();
+  const id = Number(button.dataset.id);
+  if (button.dataset.action === "plus") changeQty(id, 1);
+  if (button.dataset.action === "minus") changeQty(id, -1);
+  if (button.dataset.action === "remove") removeFromCart(id);
 });
-document.querySelector("#cartToggle").addEventListener("click", () => setCartOpen(true));
+document.querySelector("#cartToggle").addEventListener("click", openCart);
 document.querySelector("#closeCart").addEventListener("click", () => {
-  setCartOpen(false);
+  closeCart();
   document.querySelector("#cartToggle").focus();
 });
-document.querySelectorAll("[data-open-cart]").forEach((button) => button.addEventListener("click", () => setCartOpen(true)));
-overlay.addEventListener("click", () => setCartOpen(false));
+document.querySelectorAll("[data-open-cart]").forEach((button) => button.addEventListener("click", openCart));
+overlay.addEventListener("click", closeCart);
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && cartPanel.classList.contains("is-open")) {
-    setCartOpen(false);
+    closeCart();
     document.querySelector("#cartToggle").focus();
   }
 });
 
-const addressField = document.querySelector("#custAddress");
-document.querySelectorAll('input[name="orderType"]').forEach((radio) => radio.addEventListener("change", () => {
-  const needsAddress = document.querySelector('input[name="orderType"]:checked').value === "Delivery";
-  addressField.required = needsAddress;
-  addressField.disabled = !needsAddress;
-  addressField.classList.toggle("is-hidden", !needsAddress);
-  document.querySelector('label[for="custAddress"]').classList.toggle("is-hidden", !needsAddress);
-}));
-
-document.querySelector("#orderForm").addEventListener("submit", (event) => {
-  event.preventDefault();
-  const form = event.currentTarget;
-  const message = document.querySelector("#formMsg");
-  message.textContent = "";
-  message.classList.remove("is-error");
-  if (!cart.size) {
-    message.textContent = "Pehle menu se kuch items add karein.";
-    message.classList.add("is-error");
-    return;
-  }
-  if (!form.reportValidity()) {
-    message.textContent = "Apna naam, sahi phone number aur delivery address check karein.";
-    message.classList.add("is-error");
-    return;
-  }
-  const orderType = form.elements.orderType.value;
-  const orderLines = [...cart.entries()].map(([name, quantity]) => {
-    const item = allItems.find((menuItem) => menuItem.name === name);
-    return `${quantity} x ${name} - Rs. ${(item.price * quantity).toLocaleString("en-PK")}`;
+document.querySelectorAll('input[name="orderType"]').forEach((radio) => {
+  radio.addEventListener("change", () => {
+    const isDelivery = document.querySelector('input[name="orderType"]:checked').value === "Delivery";
+    addressEl.required = isDelivery;
+    addressEl.disabled = !isDelivery;
+    addressEl.placeholder = isDelivery ? "Address (zaroori hai)" : "Address (pickup par zaroori nahi)";
+    addressEl.classList.toggle("is-hidden", !isDelivery);
+    document.querySelector('label[for="custAddress"]').classList.toggle("is-hidden", !isDelivery);
   });
-  const total = [...cart.entries()].reduce((sum, [name, quantity]) => sum + allItems.find((item) => item.name === name).price * quantity, 0);
-  const details = [
-    "Assalam-o-alaikum, Khan Burger! Mera order:",
-    ...orderLines,
-    `Total: Rs. ${total.toLocaleString("en-PK")}`,
-    `Naam: ${form.elements.name.value.trim()}`,
-    `Phone: ${form.elements.phone.value.trim()}`,
-    `Order type: ${orderType}`,
-    ...(orderType === "Delivery" ? [`Address: ${addressField.value.trim()}`] : []),
-    ...(form.elements.note.value.trim() ? [`Note: ${form.elements.note.value.trim()}`] : [])
-  ].join("\n");
-  const whatsappUrl = `https://wa.me/923014998983?text=${encodeURIComponent(details)}`;
-  window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-  message.textContent = "WhatsApp khul raha hai. Wahan se order send karein.";
 });
 
-renderMenu(activeCategory);
+orderForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  formMsg.textContent = "";
+  formMsg.classList.remove("is-error");
+  if (cart.length === 0) {
+    formMsg.textContent = "Pehle cart mein kuch items daalein.";
+    formMsg.classList.add("is-error");
+    return;
+  }
+  if (!orderForm.reportValidity()) {
+    formMsg.textContent = "Naam, sahi phone number aur zaroori address check karein.";
+    formMsg.classList.add("is-error");
+    return;
+  }
+
+  const name = orderForm.elements.name.value.trim();
+  const phone = orderForm.elements.phone.value.trim();
+  const address = addressEl.value.trim();
+  const note = orderForm.elements.note.value.trim();
+  const orderType = orderForm.elements.orderType.value;
+  const details = [
+    "*Naya Order - Khan Burger*",
+    "",
+    `*Naam:* ${name}`,
+    `*Phone:* ${phone}`,
+    `*Order Type:* ${orderType}`,
+    ...(orderType === "Delivery" ? [`*Address:* ${address}`] : []),
+    "",
+    "*Items:*",
+    ...cart.map((item, index) => `${index + 1}. ${item.name} x ${item.qty} = ${formatPrice(item.price * item.qty)}`),
+    "",
+    `*Total: ${formatPrice(getTotal())}*`,
+    ...(note ? ["", `*Note:* ${note}`] : [])
+  ].join("\n");
+  const whatsappUrl = `https://wa.me/${RESTAURANT_WHATSAPP}?text=${encodeURIComponent(details)}`;
+  const orders = readStorage(ORDER_HISTORY_KEY, []);
+  try {
+    localStorage.setItem(ORDER_HISTORY_KEY, JSON.stringify([
+      ...(Array.isArray(orders) ? orders : []),
+      { date: new Date().toISOString(), name, phone, orderType, items: cart, total: getTotal() }
+    ]));
+  } catch {
+    formMsg.textContent = "WhatsApp khul raha hai. Order history save nahi ho saki.";
+  }
+  window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+  cart = [];
+  saveCart();
+  renderCart();
+  orderForm.reset();
+  addressEl.required = true;
+  addressEl.disabled = false;
+  addressEl.classList.remove("is-hidden");
+  document.querySelector('label[for="custAddress"]').classList.remove("is-hidden");
+  closeCart();
+});
+
+renderCategories();
+renderMenu();
 renderCart();

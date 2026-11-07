@@ -185,6 +185,7 @@ body { padding-bottom: 0; background: var(--gray); color: var(--black); font-fam
 .category-tab::after { display: none; }
 .category-tab.is-active { color: var(--white); background: var(--red); }
 .menu { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; }
+.cat-title { grid-column: 1 / -1; margin: 10px 0 0; padding-bottom: 6px; border-bottom: 3px solid var(--yellow); color: var(--red); font-size: 22px; }
 .menu-card { padding: 12px; border: 0; border-radius: 12px; background: var(--white); box-shadow: 0 2px 8px rgba(0, 0, 0, .08); }
 .menu-photo { border-radius: 7px; }
 .photo-tag { color: var(--black); background: var(--yellow); }
